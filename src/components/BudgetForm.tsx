@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react"
+import { useBudget } from "../hooks/useBudget"
 
 
 const BudgetForm = () => {
   
     const [budget,setBudget] = useState(0)
+    const {dispatch} = useBudget()
 
     const hadleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
         setBudget(+e.target.value)
@@ -15,7 +17,9 @@ const BudgetForm = () => {
 
     const hadleSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
       e.preventDefault()
-      console.log('Definir presupuesto')
+
+      dispatch({type:'add-budget', payload:{budget}})
+      
     }
 
     return (
