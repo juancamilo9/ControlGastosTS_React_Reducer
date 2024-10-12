@@ -28,7 +28,7 @@ export const ExpenseDetails = ({ expense }: ExpenseDetailProps) => {
   const leadingActions = ()=>(
     <LeadingActions>
       <SwipeAction
-        onClick={()=>{}}
+        onClick={()=>dispatch({type:'get-expense-by-id', payload:{id:id}})}
       >
         Actualizar
       </SwipeAction>
