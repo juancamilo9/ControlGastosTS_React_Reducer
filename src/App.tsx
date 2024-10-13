@@ -4,6 +4,7 @@ import BudgetTracker from "./components/BudgetTracker";
 import { ExpenseLists } from './components/ExpenseLists';
 import ExpenseModal from './components/ExpenseModal';
 import { useBudget } from "./hooks/useBudget";
+import FilterByCategory from './components/FilterByCategory';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
       </div>
       {isBudgetValid &&(
         <main className="max-w-3xl mx-auto py-10">
+          <FilterByCategory/>
           <ExpenseLists/>
           <ExpenseModal />
         </main>

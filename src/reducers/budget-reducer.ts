@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { DrafExpense, Expense } from '../types/insdex';
+import { Category, DrafExpense, Expense } from '../types';
+
 
 export type BudgetActions =
     { type: 'add-budget', payload: { budget: number } } |
@@ -9,7 +10,8 @@ export type BudgetActions =
     { type: 'delete-expense', payload: { id: Expense['id'] } } |
     { type: 'get-expense-by-id', payload: { id: Expense['id'] } } |
     { type: 'edit-expense', payload: { expense: Expense } } |
-    { type: 'reset-app' }
+    { type: 'reset-app' } | 
+    { type: 'search-category', payload: { category: Category['id'] } } 
 
 export type BudgetState = {
     budget: number,
@@ -17,6 +19,7 @@ export type BudgetState = {
     expenses: Expense[]
     editingId: Expense['id']
     modalBugdget:boolean
+    currentCategory: Category['id']
 }
 
 const initialBudget = (): number=>{
@@ -34,7 +37,8 @@ export const initialState: BudgetState = {
     modal: false,
     expenses: initialExpenses(),
     editingId: '',
-    modalBugdget:false
+    modalBugdget:false,
+    currentCategory:''
 }
 
 // Fucnion parac rear un gasto
@@ -117,5 +121,11 @@ export const BudgetReducer = (
         }
     }
 
+    if(action.type === 'search-category'){
+        return{
+            ...state,
+            currentCategory: action.payload.category
+        }
+    }
     return state
 }

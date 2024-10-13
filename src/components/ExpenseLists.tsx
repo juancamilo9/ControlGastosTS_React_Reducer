@@ -1,13 +1,16 @@
 import { useMemo } from "react";
-import { useBudget } from "../hooks/useBudget"
+import { useBudget } from "../hooks/useBudget";
 import { ExpenseDetails } from './ExpenseDetails';
 
 export const ExpenseLists = () => {
 
     const { state } = useBudget();
 
+    const filterCategory = state.currentCategory? state.expenses.filter(expense => expense.category === state.currentCategory): state.expenses
+
+    
     // Declaramos un useMemo para que se detecte elcambio de state.expenses
-    const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses])
+    const isEmpty = useMemo(() => filterCategory.length === 0, [filterCategory])
 
     return (
         <div className="mt-10">
@@ -16,7 +19,7 @@ export const ExpenseLists = () => {
                 : (
                     <>
                         <p className="font-bold text-gray-600 text-center my-5 text-2xl"> Lista de Gastos</p>
-                        {state.expenses.map(expense => (
+                        {filterCategory.map(expense => (
                             <ExpenseDetails
                                 key={expense.id}
                                 expense = {expense}
